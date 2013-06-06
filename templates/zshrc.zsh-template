@@ -103,12 +103,14 @@ precmd () {
     screen_title "%2~"
 }
 
-ssh() {
-    screen_title "$1";
-    titlecmd "$1";
-    command ssh $*;
-    screen_title "$HOSTNAME";
-}
+alias ssh='TERM=xterm ssh'
+
+#ssh() {
+#    screen_title "$1";
+#    titlecmd "$1";
+#    command ssh $*;
+#    screen_title "$HOSTNAME";
+#}
 
 #
 # end: Xterm and Screen title update
