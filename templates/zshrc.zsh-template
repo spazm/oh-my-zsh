@@ -69,6 +69,7 @@ export PATH=$AWS_IAM_HOME/bin:$EC2_LOC/bin:$PATH
 alias json="python -mjson.tool"
 alias grpe="grep"
 alias vl=vimpager
+alias diff="diff --suppress-common-lines --side-by-side"
 
 
 xterm_title()
@@ -104,6 +105,7 @@ precmd () {
 }
 
 alias ssh='TERM=xterm ssh'
+alias vagrant="TERM=xterm vagrant"
 
 #ssh() {
 #    screen_title "$1";
