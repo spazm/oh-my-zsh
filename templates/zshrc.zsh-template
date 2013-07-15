@@ -116,6 +116,18 @@ alias vagrant="TERM=xterm vagrant"
 
 #
 # end: Xterm and Screen title update
+set-show-tabs() {
+    global=
+    test "$1" = -g || test "$1" = --global && global=--global
+    cws=$(git config $global core.whitespace)
+    case "$cws" in
+        tab-in-indent,*|*,tab-in-indent|*,tab-in-indent,*) ;;
+        *) git config $global core.whitespace "$cws"${cws:+,}tab-in-indent ;;
+    esac
+}
+set-show-tabs           # only in local repository
+set-show-tabs --global  # for all your Git activities
+
 _complete_ssh_hosts ()
 {
         COMPREPLY=()
