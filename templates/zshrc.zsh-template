@@ -59,17 +59,24 @@ bindkey "^r" history-incremental-search-backward
 
 # Customize to your needs...
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin
+export WS="$HOME/workspace"
+export FS="$HOME/funspace"
 export JAVA_HOME=/usr/lib/jvm/java-6-openjdk/
 export AWS_CREDENTIAL_FILE=$HOME/.aws/dm53-credential-file
 export AWS_EC2_REGION=us-west-2
 export AWS_IAM_HOME=/usr/local/iamcli
 export EC2_HOME="/usr/local/ec2-api-tools/"
 export EC2_LOC="/usr/local/ec2-api-tools/"
-export PATH=$AWS_IAM_HOME/bin:$EC2_LOC/bin:$PATH
+export GOROOT="/usr/local/go"
+export GOPATH="$FS/go"
+export PATH=$AWS_IAM_HOME/bin:$EC2_LOC/bin:$PATH:$GOROOT/bin:$GOPATH/bin
 alias json="python -mjson.tool"
 alias grpe="grep"
 alias vl=vimpager
 alias diff="diff --suppress-common-lines --side-by-side"
+alias ws="cd $WS"
+alias fs="cd $FS"
+alias gh="cd $GOPATH"
 
 
 xterm_title()
@@ -148,3 +155,7 @@ _complete_ssh_hosts ()
 compctl -F _complete_ssh_hosts ssh
 fortune
 #compctl -o default -o nospace -W “$(awk ‘/^Host / {print $2}’ < $HOME/.ssh/config) scp sftp SSH
+# Bash-like command editing
+autoload -U edit-command-line; zle -N edit-command-line; bindkey '^X^e' edit-command-line;
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
