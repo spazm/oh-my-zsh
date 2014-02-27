@@ -33,3 +33,12 @@ alias la='ls -lAh'
 
 alias afind='ack-grep -il'
 
+alias json="python -mjson.tool"
+alias grpe="grep"
+alias vl=vimpager
+alias diff="diff --suppress-common-lines --side-by-side"
+alias ws="cd $WS"
+alias fs="cd $FS"
+alias gh="cd $GOPATH"
+alias ssh='TERM=xterm ssh'
+alias vagrant="TERM=xterm vagrant"
