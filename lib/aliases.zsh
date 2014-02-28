@@ -42,3 +42,4 @@ alias fs="cd $FS"
 alias gh="cd $GOPATH"
 alias ssh='TERM=xterm ssh'
 alias vagrant="TERM=xterm vagrant"
+alias t="todo.sh"
