@@ -14,3 +14,6 @@ export GOROOT="/usr/local/go"
 export GOPATH="$FS/go"
 export PATH=$AWS_IAM_HOME/bin:$EC2_LOC/bin:$PATH:$GOROOT/bin:$GOPATH/bin
 export AIRSHIP_SSH_COMMAND=/usr/local/bin/as-ssh
+export CFLAGS=-Qunused-arguments
+export CPPFLAGS=-Qunused-arguments
+export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache
