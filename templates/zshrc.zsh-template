@@ -120,3 +120,4 @@ fortune
 autoload -U edit-command-line; zle -N edit-command-line; bindkey '^X^e' edit-command-line;
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+unalias gl
