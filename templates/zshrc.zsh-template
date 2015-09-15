@@ -114,6 +114,7 @@ _complete_ssh_hosts ()
         return 0
 }
 compctl -F _complete_ssh_hosts ssh
+compctl -F _complete_ssh_hosts rpup
 #compctl -o default -o nospace -W “$(awk ‘/^Host / {print $2}’ < $HOME/.ssh/config) scp sftp SSH
 # Bash-like command editing
 autoload -U edit-command-line; zle -N edit-command-line; bindkey '^X^e' edit-command-line;
