@@ -118,8 +118,8 @@ compctl -F _complete_ssh_hosts ssh
 # Bash-like command editing
 autoload -U edit-command-line; zle -N edit-command-line; bindkey '^X^e' edit-command-line;
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 unalias gl
 source `brew --prefix`/etc/profile.d/z.sh
+source '/usr/local/gcloud/google-cloud-sdk/completion.zsh.inc'
 
 fortune | cowsay
