@@ -94,10 +94,10 @@ esac
 set-show-tabs() {
     global=
     test "$1" = -g || test "$1" = --global && global=--global
-    cws=$(git config $global core.whitespace)
+    cws=$(command git config $global core.whitespace)
     case "$cws" in
         tab-in-indent,*|*,tab-in-indent|*,tab-in-indent,*) ;;
-        *) git config $global core.whitespace "$cws"${cws:+,}tab-in-indent ;;
+        *) command git config $global core.whitespace "$cws"${cws:+,}tab-in-indent ;;
     esac
 }
 set-show-tabs           # only in local repository
