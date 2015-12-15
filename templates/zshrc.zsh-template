@@ -127,7 +127,8 @@ compctl -F _complete_ssh_hosts rpup
 autoload -U edit-command-line; zle -N edit-command-line; bindkey '^X^e' edit-command-line;
 
 unalias gl
-source `brew --prefix`/etc/profile.d/z.sh
-source '/usr/local/gcloud/google-cloud-sdk/completion.zsh.inc'
+BREW_PREFIX=`brew --prefix`
+[ -f ${BREW_PREFIX}/etc/profile.d/z.sh ] && . ${BREW_PREFIX}/etc/profile.d/z.sh
+[ -f '/usr/local/gcloud/google-cloud-sdk/completion.zsh.inc' ] && . '/usr/local/gcloud/google-cloud-sdk/completion.zsh.inc'
 
 fortune | cowsay
