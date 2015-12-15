@@ -48,10 +48,17 @@ plugins=(git battery)
 
 # User configuration
 
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+# set PATH:
+[ -f "$ZSH/oh-my-zsh.sh" ] && . $ZSH/oh-my-zsh.sh
+[ -f '/opt/boxen/env.sh' ] && . '/opt/boxen/env.sh'
+
+# make PATH/path unique
+typeset -U path
+# prepend $HOME/bin to path
+path=($HOME/bin "$path[@]")
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
-source $ZSH/oh-my-zsh.sh
 setopt hist_ignore_all_dups
 unsetopt correct_all
 bindkey -v
