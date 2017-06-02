@@ -68,20 +68,6 @@ bindkey "^r" history-incremental-search-backward
 # Customize to your needs...
 
 
-case $TERM in
-    screen|screen-w|screen-256color|screen-256color-bce)
-        alias titlecmd="screen_title"
-    ;;
-    xterm|xterm-256color|xterm-color)
-        alias titlecmd="xterm_title"
-    ;;
-    *)
-        alias titlecmd=":"
-    ;;
-esac
-
-## autoset title based on location and process
-
 #ssh() {
 #    screen_title "$1";
 #    titlecmd "$1";

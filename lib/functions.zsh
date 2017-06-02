@@ -86,11 +86,25 @@ function screen_title() {
     xterm_title "$@"
 }
 
+case $TERM in
+    screen|screen-w|screen-256color|screen-256color-bce)
+        alias titlecmd="screen_title"
+    ;;
+    xterm|xterm-256color|xterm-color)
+        alias titlecmd="xterm_title"
+    ;;
+    *)
+        alias titlecmd=":"
+    ;;
+esac
+
+## autoset title based on location and process
+
 function preexec () {
-    screen_title "%2~" ":" "\"$1\""
+    titlecmd "%2~" ":" "\"$1\""
 }
 
 function precmd () {
-    screen_title "%2~"
+    titlecmd "%2~"
 }
 
