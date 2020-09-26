@@ -44,18 +44,16 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git battery)
+plugins=(git battery gitfast)
 
 # User configuration
 
-# set PATH:
 [ -f "$ZSH/oh-my-zsh.sh" ] && . $ZSH/oh-my-zsh.sh
-[ -f '/opt/boxen/env.sh' ] && . '/opt/boxen/env.sh'
 
 # make PATH/path unique
-typeset -U path
+# typeset -U path
 # prepend $HOME/bin to path
-path=($HOME/bin "$path[@]")
+# path=($HOME/bin $HOME/.fzf/bin /snap/bin "$path[@]" )
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -112,9 +110,90 @@ compctl -F _complete_ssh_hosts rpup
 # Bash-like command editing
 autoload -U edit-command-line; zle -N edit-command-line; bindkey '^X^e' edit-command-line;
 
-unalias gl
-BREW_PREFIX=`brew --prefix`
+# unalias gl
+BREW_PREFIX=`brew --prefix` 2>/dev/null
 [ -f ${BREW_PREFIX}/etc/profile.d/z.sh ] && . ${BREW_PREFIX}/etc/profile.d/z.sh
 [ -f '/usr/local/gcloud/google-cloud-sdk/completion.zsh.inc' ] && . '/usr/local/gcloud/google-cloud-sdk/completion.zsh.inc'
 
+fix_ssh_old () {
+    eval $(tmux show-environment | grep ^SSH_AUTH_SOCK)
+}
+
+MY_AUTH_SOCK="$HOME/.ssh/agent.sock"
+fix_ssh () {
+    if [ -z ${TMUX+x} ]; then
+        case "$SSH_AUTH_SOCK" in
+            "$MY_AUTH_SOCK")
+                ;;
+            *)
+                echo "re-linking $MY_AUTH_SOCK"
+                ln --force -s $SSH_AUTH_SOCK $MY_AUTH_SOCK
+                export SSH_AUTH_SOCK=$MY_AUTH_SOCK
+                ;;
+        esac
+        return
+    fi
+
+    tmux_show_environment=$(tmux show-environment 2>/dev/null | grep ^SSH_AUTH_SOCK)
+    if [ $? -ne 0 ]; then
+        echo "tmux show-environment failed"
+        return
+    fi
+
+    #echo "tmux_show_environment: $tmux_show_environment"
+    eval $(echo "TMUX_$tmux_show_environment")
+    # sets $TMUX_SSH_AUTH_SOCK
+
+    case "$TMUX_SSH_AUTH_SOCK" in
+        "$MY_AUTH_SOCK")
+            ;;
+        *)
+            echo "re-linking $MY_AUTH_SOCK"
+            echo "ln --force -s $TMUX_SSH_AUTH_SOCK $MY_AUTH_SOCK"
+            ln --force -s "$TMUX_SSH_AUTH_SOCK" "$MY_AUTH_SOCK"
+            ;;
+    esac
+    case "$SSH_AUTH_SOCK" in
+        "$MY_AUTH_SOCK")
+            ;;
+        *)
+            echo "exporting SSH_AUTH_SOCK"
+            export SSH_AUTH_SOCK=$MY_AUTH_SOCK
+            ;;
+    esac
+}
+setopt autonamedirs
+s=$HOME/src/ZipRecruiter
+z=~s/ziprecruiter
+l=/vol/log
+
+alias mr='killall -r plackup -w -q; killall -r starman -w -q; cd $STARTERVIEW; bin/zr-www-app'
+
+# export PATH=$HOME/bin:/usr/local/bin:$PATH:/usr/games
+# export PATH=$PATH:$HOME/.cargo/bin
+# PATH=$PATH:/usr/games
 fortune | cowsay
+# export EDITOR=vim
+
+# export GOPATH=$HOME/go
+# export GOROOT=/snap/go
+# export PATH=$PATH:$GOPATH/bin
+
+alias light='echo "setting ITERM_PROFILE to light"; export ITERM_PROFILE="light"'
+alias dark='echo "setting ITERM_PROFILE to dark"; export ITERM_PROFILE="dark"'
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/andrew/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/andrew/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/andrew/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/andrew/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
