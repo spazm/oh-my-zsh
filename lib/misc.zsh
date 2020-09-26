@@ -7,7 +7,8 @@ setopt long_list_jobs
 
 ## pager
 export PAGER="less"
-export LESS="-R"
+export LESS="-RF"
+# upgrade to less > 486 and -F implies -X for <1 page output.
 
 ## super user alias
 alias _='sudo'

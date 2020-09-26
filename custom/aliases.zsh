@@ -1,7 +1,7 @@
 alias json="python -mjson.tool"
 alias grpe="grep"
 alias vl=vimpager
-alias diff="diff --suppress-common-lines --side-by-side"
+#alias diff="diff --suppress-common-lines --side-by-side"
 alias ws="cd $WS"
 alias fs="cd $FS"
 alias gh="cd $GOHOME"
