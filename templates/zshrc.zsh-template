@@ -163,11 +163,6 @@ fix_ssh () {
     esac
 }
 setopt autonamedirs
-s=$HOME/src/ZipRecruiter
-z=~s/ziprecruiter
-l=/vol/log
-
-alias mr='killall -r plackup -w -q; killall -r starman -w -q; cd $STARTERVIEW; bin/zr-www-app'
 
 # export PATH=$HOME/bin:/usr/local/bin:$PATH:/usr/games
 # export PATH=$PATH:$HOME/.cargo/bin
